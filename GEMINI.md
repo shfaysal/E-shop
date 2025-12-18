@@ -58,6 +58,8 @@ You are working in an Android app using:
 - Navigation Compose
 - Room (optional) + DataStore
 - Coroutines + MutableStateFlow or Flow (best)
+- use type safe navigation
+- add safe componant in data class
 
 Coding rules:
 - No “god” ViewModels. One per screen or per feature.
