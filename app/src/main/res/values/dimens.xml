@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Padding & Margin -->
+    <dimen name="padding_tiny">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_extra_large">24dp</dimen>
+    <dimen name="padding_xxl">32dp</dimen>
+
+    <!-- Component Sizes -->
+    <dimen name="icon_size_small">24dp</dimen>
+    <dimen name="category_item_width">70dp</dimen>
+    <dimen name="category_image_size">60dp</dimen>
+    <dimen name="product_item_height">120dp</dimen>
+    <dimen name="product_image_height_large">300dp</dimen>
+    <dimen name="related_product_width">140dp</dimen>
+    <dimen name="related_product_image_height">100dp</dimen>
+    <dimen name="corner_radius_medium">8dp</dimen>
+    <dimen name="corner_radius_large">12dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    
+    <!-- Avatars -->
+    <dimen name="avatar_size_large">120dp</dimen>
+
+    <!-- Font Sizes (Note: In Compose, it's often easier to use sp directly in Type.kt, but we can define standard sizes here if needed) -->
+    <!-- We will rely on MaterialTheme.typography for most text, but defining base sizes here for reference/conversion if needed -->
+</resources>

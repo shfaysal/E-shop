@@ -9,12 +9,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
+import com.example.e_shop.R
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.e_shop.ui.auth.AuthViewModel
 import com.example.e_shop.ui.components.AppText
 import com.example.e_shop.ui.navigation.Screen
+
+import androidx.compose.ui.res.stringResource
 
 @Composable
 fun ProfileScreen(
@@ -37,12 +41,12 @@ fun ProfileScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        AppText(text = "profile", style = MaterialTheme.typography.headlineMedium)
+        AppText(text = stringResource(R.string.profile), style = MaterialTheme.typography.headlineMedium)
         
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_xxl)))
         
         Button(onClick = { viewModel.logout() }) {
-            AppText(text = "Logout")
+            AppText(text = stringResource(R.string.logout))
         }
     }
 }

@@ -15,11 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.e_shop.R
 import com.example.e_shop.ui.common.ToastHelper
 import com.example.e_shop.ui.components.AppText
 import com.example.e_shop.ui.navigation.Screen
@@ -29,6 +31,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
+
+import androidx.compose.ui.res.stringResource
 
 @Composable
 fun RegisterScreen(
@@ -73,16 +77,18 @@ fun RegisterScreen(
         }
     }
 
+    val imageUploadedSuccessMsg = stringResource(R.string.image_uploaded_success)
     LaunchedEffect(uiState.uploadSuccessUrl) {
         uiState.uploadSuccessUrl?.let {
             avatarUrl = it
-            ToastHelper.showToast(context, "Image uploaded successfully")
+            ToastHelper.showToast(context, imageUploadedSuccessMsg)
         }
     }
 
+    val registrationSuccessMsg = stringResource(R.string.registration_success)
     LaunchedEffect(uiState.registerSuccess) {
         if (uiState.registerSuccess) {
-            ToastHelper.showToast(context, "Registration successful! Please login.")
+            ToastHelper.showToast(context, registrationSuccessMsg)
             navController.navigate(Screen.Login.route) {
                 popUpTo(Screen.Register.route) { inclusive = true }
             }
@@ -100,18 +106,18 @@ fun RegisterScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(dimensionResource(R.dimen.padding_large))
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        AppText(text = "Sign Up", style = MaterialTheme.typography.headlineMedium)
+        AppText(text = stringResource(R.string.sign_up), style = MaterialTheme.typography.headlineMedium)
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_extra_large)))
 
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.size(120.dp)
+            modifier = Modifier.size(dimensionResource(R.dimen.avatar_size_large))
         ) {
             if (selectedImageUri != null) {
                 AsyncImage(
@@ -136,7 +142,7 @@ fun RegisterScreen(
                     shape = CircleShape,
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    AppText(text = "Add Photo")
+                    AppText(text = stringResource(R.string.add_photo))
                 }
             }
         }
@@ -151,39 +157,42 @@ fun RegisterScreen(
                         }
                 }
             }) {
-                AppText("Change Photo")
+                AppText(stringResource(R.string.change_photo))
             }
         }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_xxl)))
 
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Name") },
+            label = { AppText(stringResource(R.string.name)) },
+            singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
 
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
+            label = { AppText(stringResource(R.string.email)) },
+            singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
 
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") },
+            label = { AppText(stringResource(R.string.password)) },
             visualTransformation = PasswordVisualTransformation(),
+            singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_extra_large)))
 
         Button(
             onClick = { viewModel.register(name, email, password, avatarUrl) },
@@ -191,16 +200,16 @@ fun RegisterScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             if (uiState.isLoading) {
-                CircularProgressIndicator(modifier = Modifier.size(24.dp), color = MaterialTheme.colorScheme.onPrimary)
+                CircularProgressIndicator(modifier = Modifier.size(dimensionResource(R.dimen.icon_size_small)), color = MaterialTheme.colorScheme.onPrimary)
             } else {
-                Text("Register")
+                AppText(stringResource(R.string.register))
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
 
         TextButton(onClick = { navController.navigate(Screen.Login.route) }) {
-            Text("Already have an account? Login")
+            AppText(stringResource(R.string.already_have_account))
         }
     }
 }

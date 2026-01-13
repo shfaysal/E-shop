@@ -7,14 +7,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.e_shop.ui.auth.LoginScreen
 import com.example.e_shop.ui.auth.RegisterScreen
 import com.example.e_shop.ui.home.HomeScreen
 import com.example.e_shop.ui.product.ProductAddScreen
+import com.example.e_shop.ui.product.ProductDetailScreen
 import com.example.e_shop.ui.profile.ProfileScreen
 import com.example.e_shop.ui.splash.SplashScreen
 
@@ -78,6 +81,12 @@ fun AppNavigation() {
             }
             composable(Screen.Profile.route) {
                 ProfileScreen(navController = navController)
+            }
+            composable(
+                route = Screen.ProductDetail.route,
+                arguments = listOf(navArgument("productId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                ProductDetailScreen(navController = navController)
             }
         }
     }

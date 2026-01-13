@@ -27,6 +27,9 @@ class SplashViewModel @Inject constructor(
     }
 }
 
+import androidx.compose.ui.res.stringResource
+import com.example.e_shop.R
+
 @Composable
 fun SplashScreen(
     navController: NavController,
@@ -48,7 +51,7 @@ fun SplashScreen(
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         AppText(
-            text = "e-stop",
+            text = stringResource(R.string.app_name),
             style = MaterialTheme.typography.headlineLarge
         )
     }

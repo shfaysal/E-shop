@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">E-shop</string>
+    
+    <!-- Home Screen -->
+    <string name="categories">Categories</string>
+    <string name="new_arrivals">New Arrivals</string>
+    <string name="search_products">Search products…</string>
+    <string name="no_products_found">No products found</string>
+    <string name="category_products">%1$s Products</string>
+
+    <!-- Product Detail Screen -->
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="description">Description</string>
+    <string name="related_products">Related Products</string>
+    <string name="back">Back</string>
+
+    <!-- Auth Screens (Login & Register) -->
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="dont_have_account">Don't have an account? Sign up</string>
+    <string name="already_have_account">Already have an account? Login</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="change_photo">Change Photo</string>
+    <string name="image_uploaded_success">Image uploaded successfully</string>
+    <string name="registration_success">Registration successful! Please login.</string>
+
+    <!-- Profile Screen -->
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
 </resources>

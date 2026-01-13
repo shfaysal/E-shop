@@ -6,13 +6,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.e_shop.R
 import com.example.e_shop.ui.common.ToastHelper
 import com.example.e_shop.ui.components.AppText
 import com.example.e_shop.ui.navigation.Screen
+
+import androidx.compose.ui.res.stringResource
 
 @Composable
 fun LoginScreen(
@@ -43,32 +47,34 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(dimensionResource(R.dimen.padding_large)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        AppText(text = "Login", style = MaterialTheme.typography.headlineMedium)
+        AppText(text = stringResource(R.string.login), style = MaterialTheme.typography.headlineMedium)
         
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_xxl)))
 
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
+            label = { AppText(stringResource(R.string.email)) },
+            singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
 
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") },
+            label = { AppText(stringResource(R.string.password)) },
             visualTransformation = PasswordVisualTransformation(),
+            singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_extra_large)))
 
         Button(
             onClick = { viewModel.login(email, password) },
@@ -76,16 +82,16 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             if (uiState.isLoading) {
-                CircularProgressIndicator(modifier = Modifier.size(24.dp), color = MaterialTheme.colorScheme.onPrimary)
+                CircularProgressIndicator(modifier = Modifier.size(dimensionResource(R.dimen.icon_size_small)), color = MaterialTheme.colorScheme.onPrimary)
             } else {
-                Text("Login")
+                AppText(stringResource(R.string.login))
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
 
         TextButton(onClick = { navController.navigate(Screen.Register.route) }) {
-            Text("Don't have an account? Sign up")
+            AppText(stringResource(R.string.dont_have_account))
         }
     }
 }

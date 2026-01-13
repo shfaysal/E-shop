@@ -65,7 +65,7 @@ class AuthViewModel @Inject constructor(
 
     fun register(name: String, email: String, pass: String, avatar: String) {
         viewModelScope.launch {
-            val finalAvatar = if (avatar.isBlank()) "https://i.imgur.com/LDOO4Qs.jpg" else avatar
+            val finalAvatar = avatar.ifBlank { "https://i.imgur.com/LDOO4Qs.jpg" }
             repository.register(UserRequest(name, email, pass, finalAvatar)).collect { result ->
                 when (result) {
                     is SafeResult.Loading -> _uiState.value = _uiState.value.copy(isLoading = true, error = null)
