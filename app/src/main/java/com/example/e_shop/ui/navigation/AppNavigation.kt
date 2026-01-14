@@ -15,8 +15,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.e_shop.ui.auth.LoginScreen
 import com.example.e_shop.ui.auth.RegisterScreen
+import com.example.e_shop.ui.cart.CartScreen
 import com.example.e_shop.ui.home.HomeScreen
-import com.example.e_shop.ui.product.ProductAddScreen
 import com.example.e_shop.ui.product.ProductDetailScreen
 import com.example.e_shop.ui.profile.ProfileScreen
 import com.example.e_shop.ui.splash.SplashScreen
@@ -29,7 +29,7 @@ fun AppNavigation() {
 
     val bottomNavItems = listOf(
         BottomNavItem.Home,
-        BottomNavItem.ProductAdd,
+        BottomNavItem.Cart,
         BottomNavItem.Profile
     )
 
@@ -76,8 +76,8 @@ fun AppNavigation() {
             composable(Screen.Home.route) {
                 HomeScreen(navController = navController)
             }
-            composable(Screen.ProductAdd.route) {
-                ProductAddScreen(navController = navController)
+            composable(Screen.Cart.route) {
+                CartScreen(navController = navController)
             }
             composable(Screen.Profile.route) {
                 ProfileScreen(navController = navController)

@@ -7,9 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.e_shop.R
 import com.example.e_shop.data.local.TokenManager
 import com.example.e_shop.ui.components.AppText
 import com.example.e_shop.ui.navigation.Screen
@@ -26,9 +28,6 @@ class SplashViewModel @Inject constructor(
         return !tokenManager.token.first().isNullOrBlank()
     }
 }
-
-import androidx.compose.ui.res.stringResource
-import com.example.e_shop.R
 
 @Composable
 fun SplashScreen(

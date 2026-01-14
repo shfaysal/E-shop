@@ -13,13 +13,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -28,10 +31,9 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.e_shop.R
 import com.example.e_shop.data.model.Product
+import com.example.e_shop.ui.common.ToastHelper
 import com.example.e_shop.ui.components.AppText
 import com.example.e_shop.ui.navigation.Screen
-
-import androidx.compose.ui.res.stringResource
 
 @Composable
 fun ProductDetailScreen(
@@ -39,12 +41,20 @@ fun ProductDetailScreen(
     viewModel: ProductDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(uiState.isAddedToCart) {
+        if (uiState.isAddedToCart) {
+            ToastHelper.showToast(context, "Added to cart")
+            viewModel.resetCartFlag()
+        }
+    }
 
     Scaffold(
         bottomBar = {
             if (uiState.product != null) {
                 Button(
-                    onClick = { /* Add to Cart */ },
+                    onClick = { viewModel.addToCart() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(dimensionResource(R.dimen.padding_large)),

@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.e_shop.data.model.Product
+import com.example.e_shop.data.repository.CartRepository
 import com.example.e_shop.data.repository.ProductRepository
 import com.example.e_shop.util.SafeResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,12 +19,14 @@ data class ProductDetailUiState(
     val isLoading: Boolean = false,
     val product: Product? = null,
     val relatedProducts: List<Product> = emptyList(),
-    val error: String? = null
+    val error: String? = null,
+    val isAddedToCart: Boolean = false
 )
 
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
     private val productRepository: ProductRepository,
+    private val cartRepository: CartRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -36,6 +39,18 @@ class ProductDetailViewModel @Inject constructor(
         productId?.let { id ->
             fetchProductDetails(id)
         }
+    }
+
+    fun addToCart() {
+        val product = uiState.value.product ?: return
+        cartRepository.addToCart(product)
+        _uiState.update { it.copy(isAddedToCart = true) }
+        // Reset the flag after a short delay or let UI handle it?
+        // For now, let's just keep it simple. The UI can show a Snackbar.
+    }
+
+    fun resetCartFlag() {
+        _uiState.update { it.copy(isAddedToCart = false) }
     }
 
     private fun fetchProductDetails(id: Int) {
