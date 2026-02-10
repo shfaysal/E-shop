@@ -46,6 +46,7 @@ To run instrumented tests, use:
 *   **UI:** The user interface is built with Jetpack Compose. Follow Compose best practices for building UI components.
 *   **Styling:** The application's theme is defined in `app/src/main/java/com/example/e_shop/ui/theme/`.
 *   **Dependencies:** Project dependencies are managed in the `gradle/libs.versions.toml` file. Follow this convention for adding or updating dependencies.
+*   don't change the current configuration
 
 # Android App Rules (Kotlin + Compose)
 
@@ -59,7 +60,7 @@ You are working in an Android app using:
 - Room (optional) + DataStore
 - Coroutines + MutableStateFlow or Flow (best)
 - use type safe navigation
-- add safe componant in data class
+- add safe component in data class
 
 Coding rules:
 - No “god” ViewModels. One per screen or per feature.
@@ -67,6 +68,8 @@ Coding rules:
 - Use sealed interface for UiEvent/UiEffect.
 - Always update tests when adding logic.
 - Prefer small, reviewable commits.
+- create reusable textview, button, IconButton, and use it
+- 
 
 ## API Documentation
 
