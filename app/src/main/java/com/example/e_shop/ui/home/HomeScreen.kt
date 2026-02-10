@@ -51,6 +51,8 @@ import com.example.e_shop.R
 import com.example.e_shop.data.model.Category
 import com.example.e_shop.data.model.Product
 import com.example.e_shop.ui.components.AppText
+import com.example.e_shop.ui.components.CategoryListShimmer
+import com.example.e_shop.ui.components.ProductGridShimmer
 import com.example.e_shop.ui.navigation.Screen
 
 @Composable
@@ -74,9 +76,19 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
 
         if (uiState.isLoading) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
+            AppText(
+                text = stringResource(R.string.categories),
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
+            )
+            CategoryListShimmer()
+            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
+            AppText(
+                text = stringResource(R.string.new_arrivals),
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
+            )
+            ProductGridShimmer()
         } else {
             // Categories
             AppText(

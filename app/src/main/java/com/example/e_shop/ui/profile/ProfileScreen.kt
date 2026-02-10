@@ -33,6 +33,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.e_shop.R
 import com.example.e_shop.ui.components.AppText
+import com.example.e_shop.ui.components.ProfileShimmer
 import com.example.e_shop.ui.navigation.Screen
 
 @Composable
@@ -55,9 +56,7 @@ fun ProfileScreen(
         modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->
         if (uiState.isLoading) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
+            ProfileShimmer()
         } else {
             Column(
                 modifier = Modifier

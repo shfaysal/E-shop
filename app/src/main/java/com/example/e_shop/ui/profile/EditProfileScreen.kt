@@ -24,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.e_shop.ui.common.ToastHelper
+import com.example.e_shop.ui.components.ProfileShimmer
 import com.github.dhaval2404.imagepicker.ImagePicker
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -115,12 +116,7 @@ fun EditProfileScreen(
         }
     ) { innerPadding ->
         if (uiState.isLoading && uiState.currentUser == null) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp),
-                    color = MaterialTheme.colorScheme.onPrimary
-                )
-            }
+            ProfileShimmer()
         } else {
             Column(
                 modifier = Modifier
