@@ -7,6 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 
@@ -16,6 +17,12 @@ interface ApiService {
 
     @POST("users/")
     suspend fun register(@Body request: UserRequest): Response<UserResponse>
+
+    @GET("auth/profile")
+    suspend fun getProfile(): Response<UserResponse>
+
+    @PUT("users/{id}")
+    suspend fun updateUser(@Path("id") id: Int, @Body request: UserRequest): Response<UserResponse>
 
     @Multipart
     @POST("files/upload")

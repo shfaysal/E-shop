@@ -67,4 +67,42 @@ class AuthRepository @Inject constructor(
             emit(SafeResult.Error(e.message ?: "Unknown error occurred"))
         }
     }
+
+    fun getProfile(): Flow<SafeResult<UserResponse>> = flow {
+        emit(SafeResult.Loading)
+        try {
+            val response = apiService.getProfile()
+            if (response.isSuccessful) {
+                val user = response.body()
+                if (user != null) {
+                    emit(SafeResult.Success(user))
+                } else {
+                    emit(SafeResult.Error("Profile not found"))
+                }
+            } else {
+                emit(SafeResult.Error("Fetch profile failed: ${response.message()}", response.code()))
+            }
+        } catch (e: Exception) {
+            emit(SafeResult.Error(e.message ?: "Unknown error occurred"))
+        }
+    }
+
+    fun updateProfile(id: Int, request: UserRequest): Flow<SafeResult<UserResponse>> = flow {
+        emit(SafeResult.Loading)
+        try {
+            val response = apiService.updateUser(id, request)
+            if (response.isSuccessful) {
+                val user = response.body()
+                if (user != null) {
+                    emit(SafeResult.Success(user))
+                } else {
+                    emit(SafeResult.Error("Update failed: User not returned"))
+                }
+            } else {
+                emit(SafeResult.Error("Update failed: ${response.message()}", response.code()))
+            }
+        } catch (e: Exception) {
+            emit(SafeResult.Error(e.message ?: "Unknown error occurred"))
+        }
+    }
 }

@@ -3,8 +3,10 @@ package com.example.e_shop.ui.navigation
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
@@ -16,16 +18,22 @@ import androidx.navigation.navArgument
 import com.example.e_shop.ui.auth.LoginScreen
 import com.example.e_shop.ui.auth.RegisterScreen
 import com.example.e_shop.ui.cart.CartScreen
+import com.example.e_shop.ui.cart.CartViewModel
 import com.example.e_shop.ui.home.HomeScreen
 import com.example.e_shop.ui.product.ProductDetailScreen
+import com.example.e_shop.ui.profile.EditProfileScreen
+import com.example.e_shop.ui.profile.PrivacyPolicyScreen
 import com.example.e_shop.ui.profile.ProfileScreen
 import com.example.e_shop.ui.splash.SplashScreen
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(
+    cartViewModel: CartViewModel = hiltViewModel()
+) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    val cartItems by cartViewModel.cartItems.collectAsState()
 
     val bottomNavItems = listOf(
         BottomNavItem.Home,
@@ -41,7 +49,21 @@ fun AppNavigation() {
                 NavigationBar {
                     bottomNavItems.forEach { item ->
                         NavigationBarItem(
-                            icon = { Icon(item.icon, contentDescription = item.title) },
+                            icon = {
+                                if (item == BottomNavItem.Cart && cartItems.isNotEmpty()) {
+                                    BadgedBox(
+                                        badge = {
+                                            Badge {
+                                                Text(text = cartItems.size.toString())
+                                            }
+                                        }
+                                    ) {
+                                        Icon(item.icon, contentDescription = item.title)
+                                    }
+                                } else {
+                                    Icon(item.icon, contentDescription = item.title)
+                                }
+                            },
                             label = { Text(item.title) },
                             selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
                             onClick = {
@@ -81,6 +103,12 @@ fun AppNavigation() {
             }
             composable(Screen.Profile.route) {
                 ProfileScreen(navController = navController)
+            }
+            composable(Screen.EditProfile.route) {
+                EditProfileScreen(navController = navController)
+            }
+            composable(Screen.PrivacyPolicy.route) {
+                PrivacyPolicyScreen(navController = navController)
             }
             composable(
                 route = Screen.ProductDetail.route,

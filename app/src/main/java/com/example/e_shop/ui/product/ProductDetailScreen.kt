@@ -60,7 +60,10 @@ fun ProductDetailScreen(
                         .padding(dimensionResource(R.dimen.padding_large)),
                     shape = RoundedCornerShape(dimensionResource(R.dimen.corner_radius_large))
                 ) {
-                    AppText(stringResource(R.string.add_to_cart), modifier = Modifier.padding(dimensionResource(R.dimen.padding_small)))
+                    AppText(
+                        stringResource(R.string.add_to_cart),
+                        modifier = Modifier.padding(dimensionResource(R.dimen.padding_small))
+                    )
                 }
             }
         }
@@ -132,7 +135,10 @@ fun ProductContent(
             ) {
                 AppText(
                     text = product.safeCategory.safeName,
-                    modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_small), vertical = dimensionResource(R.dimen.padding_tiny)),
+                    modifier = Modifier.padding(
+                        horizontal = dimensionResource(R.dimen.padding_small),
+                        vertical = dimensionResource(R.dimen.padding_tiny)
+                    ),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSecondaryContainer
                 )

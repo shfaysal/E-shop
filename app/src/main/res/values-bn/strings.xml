@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">ই-শপ</string>
+    
+    <!-- Home Screen -->
+    <string name="categories">ক্যাটাগরি</string>
+    <string name="new_arrivals">নতুন পণ্য</string>
+    <string name="search_products">পণ্য খুঁজুন…</string>
+    <string name="no_products_found">কোনো পণ্য পাওয়া যায়নি</string>
+    <string name="category_products">%1$s পণ্যসমূহ</string>
+
+    <!-- Product Detail Screen -->
+    <string name="add_to_cart">কার্টে যোগ করুন</string>
+    <string name="description">বর্ণনা</string>
+    <string name="related_products">সম্পর্কিত পণ্য</string>
+    <string name="back">ফিরে যান</string>
+
+    <!-- Auth Screens (Login & Register) -->
+    <string name="login">লগইন</string>
+    <string name="register">রেজিস্টার</string>
+    <string name="sign_up">সাইন আপ</string>
+    <string name="email">ইমেল</string>
+    <string name="password">পাসওয়ার্ড</string>
+    <string name="name">নাম</string>
+    <string name="dont_have_account">অ্যাকাউন্ট নেই? সাইন আপ করুন</string>
+    <string name="already_have_account">অ্যাকাউন্ট আছে? লগইন করুন</string>
+    <string name="add_photo">ছবি যোগ করুন</string>
+    <string name="change_photo">ছবি পরিবর্তন করুন</string>
+    <string name="image_uploaded_success">ছবি সফলভাবে আপলোড হয়েছে</string>
+    <string name="registration_success">রেজিস্ট্রেশন সফল হয়েছে! লগইন করুন।</string>
+
+    <!-- Profile Screen -->
+    <string name="profile">প্রোফাইল</string>
+    <string name="logout">লগআউট</string>
+    <string name="settings">সেটিংস</string>
+    <string name="light_mode">লাইট মোড</string>
+    <string name="dark_mode">ডার্ক মোড</string>
+    <string name="language">ভাষা</string>
+    <string name="edit_profile">প্রোফাইল পরিবর্তন</string>
+    <string name="privacy_policy">প্রাইভেসি পলিসি</string>
+    <string name="english">ইংরেজি</string>
+    <string name="bangla">বাংলা</string>
+    <string name="language_selected">ভাষা: %1$s</string>
+</resources>

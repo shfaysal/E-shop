@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "auth_prefs")
+val Context.authDataStore: DataStore<Preferences> by preferencesDataStore(name = "auth_prefs")
 
 @Singleton
 class TokenManager @Inject constructor(@ApplicationContext private val context: Context) {
@@ -21,18 +21,18 @@ class TokenManager @Inject constructor(@ApplicationContext private val context: 
         private val TOKEN_KEY = stringPreferencesKey("jwt_token")
     }
 
-    val token: Flow<String?> = context.dataStore.data.map { preferences ->
+    val token: Flow<String?> = context.authDataStore.data.map { preferences ->
         preferences[TOKEN_KEY]
     }
 
     suspend fun saveToken(token: String) {
-        context.dataStore.edit { preferences ->
+        context.authDataStore.edit { preferences ->
             preferences[TOKEN_KEY] = token
         }
     }
 
     suspend fun clearToken() {
-        context.dataStore.edit { preferences ->
+        context.authDataStore.edit { preferences ->
             preferences.remove(TOKEN_KEY)
         }
     }
