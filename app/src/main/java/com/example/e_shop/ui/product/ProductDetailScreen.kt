@@ -33,6 +33,7 @@ import com.example.e_shop.R
 import com.example.e_shop.data.model.Product
 import com.example.e_shop.ui.common.ToastHelper
 import com.example.e_shop.ui.components.AppText
+import com.example.e_shop.ui.components.ProductDetailShimmer
 import com.example.e_shop.ui.navigation.Screen
 
 @Composable
@@ -74,7 +75,7 @@ fun ProductDetailScreen(
                 .padding(paddingValues)
         ) {
             if (uiState.isLoading) {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                ProductDetailShimmer()
             } else if (uiState.error != null) {
                 AppText(
                     text = uiState.error ?: "Unknown error",
