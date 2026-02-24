@@ -5,6 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +20,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -117,16 +120,52 @@ fun ProductContent(
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        // Product Image
-        AsyncImage(
-            model = product.firstImage,
-            contentDescription = product.safeTitle,
+        // Product Image Pager
+        val pagerState = rememberPagerState(pageCount = { product.safeImages.size })
+        
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(dimensionResource(R.dimen.product_image_height_large))
-                .background(Color.LightGray),
-            contentScale = ContentScale.Crop
-        )
+        ) {
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.fillMaxSize()
+            ) { page ->
+                AsyncImage(
+                    model = product.safeImages[page],
+                    contentDescription = product.safeTitle,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.LightGray),
+                    contentScale = ContentScale.Crop
+                )
+            }
+            
+            // Page Indicator
+            if (product.safeImages.size > 1) {
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    repeat(product.safeImages.size) { iteration ->
+                        val color = if (pagerState.currentPage == iteration) 
+                            MaterialTheme.colorScheme.primary 
+                        else 
+                            MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
+                        Box(
+                            modifier = Modifier
+                                .padding(4.dp)
+                                .clip(CircleShape)
+                                .background(color)
+                                .size(8.dp)
+                        )
+                    }
+                }
+            }
+        }
 
         Column(modifier = Modifier.padding(dimensionResource(R.dimen.padding_large))) {
             // Category Tag

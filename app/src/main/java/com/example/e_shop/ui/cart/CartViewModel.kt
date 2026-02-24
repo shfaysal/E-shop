@@ -18,6 +18,11 @@ class CartViewModel @Inject constructor(
 ) : ViewModel() {
 
     val cartItems: StateFlow<List<CartItem>> = cartRepository.cartItems
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 
     val totalPrice: StateFlow<Double> = cartItems.map { items ->
         items.sumOf { it.totalPrice }

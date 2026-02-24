@@ -1,12 +1,6 @@
 {
   "mcpServers": {
-    "android": {
-      "command": "python3",
-      "args": ["/home/sazzad/Desktop/mcpServer/android_mcp_server.py"],
-      "cwd": "/home/sazzad/Desktop/mcpServer",
-      "timeout": 30000,
-      "trust": false
-    }
+    
   }
 }
 
