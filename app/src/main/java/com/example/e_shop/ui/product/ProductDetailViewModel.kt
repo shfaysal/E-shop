@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.e_shop.data.model.Product
 import com.example.e_shop.data.repository.CartRepository
 import com.example.e_shop.data.repository.ProductRepository
+import com.example.e_shop.data.repository.WishlistRepository
 import com.example.e_shop.util.SafeResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +21,8 @@ data class ProductDetailUiState(
     val product: Product? = null,
     val relatedProducts: List<Product> = emptyList(),
     val error: String? = null,
-    val isAddedToCart: Boolean = false
+    val isAddedToCart: Boolean = false,
+    val isWishlisted: Boolean = false
 )
 
 @HiltViewModel

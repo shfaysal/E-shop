@@ -18,6 +18,7 @@ import javax.inject.Inject
 
 data class HomeUiState(
     val isLoading: Boolean = false,
+    val isRefreshing: Boolean = false,
     val products: List<Product> = emptyList(),
     val filteredProducts: List<Product> = emptyList(),
     val categories: List<Category> = emptyList(),
@@ -38,12 +39,16 @@ class HomeViewModel @Inject constructor(
     private var searchJob: Job? = null
 
     init {
-        fetchInitialData()
+        fetchHomeData()
     }
 
-    private fun fetchInitialData() {
+    private fun fetchHomeData(isRefresh: Boolean = false) {
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true) }
+            if (isRefresh) {
+                _uiState.update { it.copy(isRefreshing = true) }
+            } else {
+                _uiState.update { it.copy(isLoading = true) }
+            }
             
             val productsResult = productRepository.getProducts()
             val categoriesResult = productRepository.getCategories()
@@ -59,6 +64,7 @@ class HomeViewModel @Inject constructor(
                 
                 currentState.copy(
                     isLoading = false,
+                    isRefreshing = false,
                     products = products,
                     filteredProducts = products,
                     categories = categories,
@@ -66,6 +72,10 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun refreshHomeData() {
+        fetchHomeData(isRefresh = true)
     }
 
     fun onSearchQueryChanged(query: String) {

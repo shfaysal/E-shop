@@ -68,6 +68,11 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.image.picker)
 
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
+
     // Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)

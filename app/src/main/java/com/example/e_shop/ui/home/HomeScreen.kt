@@ -31,6 +31,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -62,58 +64,64 @@ fun HomeScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(dimensionResource(R.dimen.padding_large))
+    PullToRefreshBox(
+        isRefreshing = uiState.isRefreshing,
+        onRefresh = { viewModel.refreshHomeData() },
+        modifier = Modifier.fillMaxSize()
     ) {
-        // Search Bar
-        SearchBar(
-            query = uiState.searchQuery,
-            onQueryChanged = viewModel::onSearchQueryChanged
-        )
-
-        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
-
-        if (uiState.isLoading) {
-            AppText(
-                text = stringResource(R.string.categories),
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
-            )
-            CategoryListShimmer()
-            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
-            AppText(
-                text = stringResource(R.string.new_arrivals),
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
-            )
-            ProductGridShimmer()
-        } else {
-            // Categories
-            AppText(
-                text = stringResource(R.string.categories),
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
-            )
-            CategoryList(
-                categories = uiState.categories,
-                selectedCategory = uiState.selectedCategory,
-                onCategorySelected = viewModel::onCategorySelected
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(dimensionResource(R.dimen.padding_large))
+        ) {
+            // Search Bar
+            SearchBar(
+                query = uiState.searchQuery,
+                onQueryChanged = viewModel::onSearchQueryChanged
             )
 
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
 
-            // Products
-            AppText(
-                text = if (uiState.selectedCategory != null) 
-                    stringResource(R.string.category_products, uiState.selectedCategory?.safeName ?: "") 
-                else 
-                    stringResource(R.string.new_arrivals),
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
-            )
-            ProductGrid(products = uiState.filteredProducts, navController = navController)
+            if (uiState.isLoading) {
+                AppText(
+                    text = stringResource(R.string.categories),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
+                )
+                CategoryListShimmer()
+                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
+                AppText(
+                    text = stringResource(R.string.new_arrivals),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
+                )
+                ProductGridShimmer()
+            } else {
+                // Categories
+                AppText(
+                    text = stringResource(R.string.categories),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
+                )
+                CategoryList(
+                    categories = uiState.categories,
+                    selectedCategory = uiState.selectedCategory,
+                    onCategorySelected = viewModel::onCategorySelected
+                )
+
+                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
+
+                // Products
+                AppText(
+                    text = if (uiState.selectedCategory != null) 
+                        stringResource(R.string.category_products, uiState.selectedCategory?.safeName ?: "") 
+                    else 
+                        stringResource(R.string.new_arrivals),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
+                )
+                ProductGrid(products = uiState.filteredProducts, navController = navController)
+            }
         }
     }
 }
